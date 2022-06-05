@@ -1,4 +1,4 @@
-# synvert-api-javascript
+# node-query-api-javascript
 
 serverless api to
 
