@@ -5,7 +5,7 @@ import { SyntaxError } from "./error";
 
 export const generateAst = (source: string): ts.Node => {
   const node = generateNode(source);
-  const program = ts.createProgram(['code.js'], {});
+  const program = ts.createProgram(['code.ts'], {});
   const diagnotics = program.getSyntacticDiagnostics(node);
   if (diagnotics.length > 0) {
     throw new SyntaxError(diagnotics[0].messageText.toString());
@@ -20,5 +20,5 @@ export const parseNql = (nql: string, source: string): ts.Node[] => {
 }
 
 const generateNode = (source: string): ts.SourceFile => {
-  return ts.createSourceFile("code.js", source, ts.ScriptTarget.Latest, false);
+  return ts.createSourceFile("code.ts", source, ts.ScriptTarget.Latest, false);
 }
