@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
-import { generateAst } from './api';
+import { generateAst, parseNql } from './api';
 
 const port = process.env.PORT || 3000;
 const app: Express = express();
@@ -17,6 +17,11 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/generate-ast', jsonParser, (req: Request, res: Response) => {
   const node = generateAst(req.body.code);
   res.json({ node });
+});
+
+app.post('/post-nql', jsonParser, (req: Request, res: Response) => {
+  const nodes = parseNql(req.body.nql, req.body.code);
+  res.json({ nodes });
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

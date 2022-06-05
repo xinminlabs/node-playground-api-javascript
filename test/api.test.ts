@@ -1,4 +1,4 @@
-import { generateAst } from '../lib/api';
+import { generateAst, parseNql } from '../lib/api';
 import { SyntaxError } from '../lib/error';
 
 describe("genereteAst", () => {
@@ -23,5 +23,14 @@ describe("genereteAst", () => {
     `
     const node = generateAst(code)
     expect(node).not.toBeNull();
+  });
+});
+
+describe("parseNql", () => {
+  it("gets node from nql", () => {
+    const nql = ".ClassDeclaration";
+    const code = "class Synvert {}";
+    const nodes = parseNql(nql, code)
+    expect(nodes.length).toBe(1);
   });
 });
