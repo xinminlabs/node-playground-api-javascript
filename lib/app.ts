@@ -19,7 +19,7 @@ app.post('/generate-ast', jsonParser, (req: Request, res: Response) => {
   res.json({ node });
 });
 
-app.post('/post-nql', jsonParser, (req: Request, res: Response) => {
+app.post('/parse-nql', jsonParser, (req: Request, res: Response) => {
   const nodes = parseNql(req.body.nql, req.body.code);
   res.json({ nodes });
 });
