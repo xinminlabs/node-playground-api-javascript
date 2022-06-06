@@ -21,7 +21,7 @@ describe("genereteAst", () => {
         }
       }
     `
-    const node = generateAst(code)
+    const node = generateAst(code, "code.tsx")
     expect(node).not.toBeNull();
   });
 });

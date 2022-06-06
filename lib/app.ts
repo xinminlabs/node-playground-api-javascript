@@ -15,12 +15,12 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/generate-ast', jsonParser, (req: Request, res: Response) => {
-  const node = generateAst(req.body.code);
+  const node = generateAst(req.body.code, req.body.path);
   res.json({ node });
 });
 
 app.post('/parse-nql', jsonParser, (req: Request, res: Response) => {
-  const nodes = parseNql(req.body.nql, req.body.code);
+  const nodes = parseNql(req.body.nql, req.body.code, req.body.path);
   res.json({ nodes });
 });
 
