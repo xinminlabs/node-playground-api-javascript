@@ -21,7 +21,7 @@ app.post('/generate-ast', jsonParser, (req: Request, res: Response) => {
 
 app.post('/parse-nql', jsonParser, (req: Request, res: Response) => {
   const nodes = parseNql(req.body.nql, req.body.code, req.body.path);
-  res.json({ nodes });
+  res.json({ nodes: nodes.map(node => ({ start: node.getFullStart(), end: node.getEnd() })) });
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
