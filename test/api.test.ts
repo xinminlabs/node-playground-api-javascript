@@ -30,7 +30,7 @@ describe("parseNql", () => {
   it("gets node from nql", () => {
     const nql = ".ClassDeclaration";
     const code = "class Synvert {}";
-    const nodes = parseNql(nql, code)
-    expect(nodes.length).toBe(1);
+    const ranges = parseNql(nql, code)
+    expect(ranges).toEqual([{ start: { line: 1, column: 0 }, end: { line: 1, column: 16 } }]);
   });
 });
