@@ -1,7 +1,7 @@
 import ts from "typescript";
 import NodeQuery from "@xinminlabs/node-query";
 
-import type { Position, Range } from "./types";
+import type { Location, Range } from "./types";
 import { SyntaxError } from "./error";
 
 export const generateAst = (source: string, path: string = "code.ts"): ts.Node => {
@@ -19,15 +19,16 @@ export const parseNql = (nql: string, source: string, path: string = "code.ts"):
   const nodeQuery = new NodeQuery<ts.Node>(nql);
   const matchingNodes = nodeQuery.parse(node);
   return matchingNodes.map((matchingNode) => {
-    const start = matchingNode.getStart()
-    const end = matchingNode.getEnd()
-    return { start: parsePosition(source, start), end: parsePosition(source, end) };
+    return { start: parseStartLocation(matchingNode), end: parseEndLocation(matchingNode) };
   });
 }
 
-const parsePosition = (source: string, position: number): Position => {
-  const strs = source.substring(0, position).split("\n");
-  const line = strs.length;
-  const column = strs[strs.length - 1].length;
-  return { line, column };
+const parseStartLocation = (node: ts.Node): Location => {
+  const { line, character } = node.getSourceFile().getLineAndCharacterOfPosition(node.getStart());
+  return { line: line + 1, column: character + 1 };
+}
+
+const parseEndLocation = (node: ts.Node): Location => {
+  const { line, character } = node.getSourceFile().getLineAndCharacterOfPosition(node.getEnd());
+  return { line: line + 1, column: character + 1 };
 }

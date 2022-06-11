@@ -1,9 +1,9 @@
-export type Position = {
+export type Location = {
   line: number,
   column: number
 }
 
 export type Range = {
-  start: Position,
-  end: Position
+  start: Location,
+  end: Location
 };
