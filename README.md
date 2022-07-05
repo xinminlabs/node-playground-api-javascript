@@ -1,4 +1,4 @@
-# node-query-api-javascript
+# node-playground-api-javascript
 
 serverless api to
 
